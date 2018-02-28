@@ -1,0 +1,34 @@
+<div class="jumbotron">
+    <h1 class="text-center">AluraPic</h1>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <a [routerLink]="['/cadastro']" class="btn btn-primary">
+                            Nova foto
+                        </a>
+                    </span>
+                    <input #textoProcurado  (keyup)="0" type="text" class="form-control" placeholder="Filtrar pelo título da foto">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <hr>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <painel *ngFor="let foto of fotos | filtroPorTitulo: textoProcurado.value" titulo="{{foto.titulo | uppercase }}" class="col-md-2">
+            <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
+        </painel>
+    </div>
+</div>

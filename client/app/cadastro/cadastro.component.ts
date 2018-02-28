@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component';
-import { Http, Headers } from '@angular/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FotoService } from '../foto/foto.service';
 
 @Component({
     moduleId: module.id,
@@ -12,12 +12,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 export class CadastroComponent {
 
     foto: FotoComponent = new FotoComponent();
-    http: Http;
     meuForm: FormGroup;
+    service: FotoService;
 
-    constructor(http: Http, fb: FormBuilder) {
+    constructor(service: FotoService, fb: FormBuilder) {
 
-        this.http = http;
+        this.service = service;
+
         this.meuForm = fb.group({
             titulo: ['', Validators.compose(
                 [
@@ -33,13 +34,13 @@ export class CadastroComponent {
         event.preventDefault();
 
         console.log(this.foto);
-        let header = new Headers();
-        header.append('Content-Type', 'application/json');
-        this.http
-            .post('v1/fotos', JSON.stringify(this.foto), { headers: header })
+
+        //usar service
+        this.service
+            .cadastra(this.foto)
             .subscribe(() => {
+                console.log('Foto cadastrada com sucesso!');
                 this.foto = new FotoComponent();
-                console.log('Foto salva com sucesso');
-            }, erro => console.log(erro));
+            }, error => console.log(error));
     }
 }

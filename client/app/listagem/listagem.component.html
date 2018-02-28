@@ -4,6 +4,8 @@
 
 <div class="container">
 
+    <p *ngIf="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
     <div class="row">
         <div class="col-sm-12">
             <form action="">
@@ -29,6 +31,7 @@
     <div class="row">
         <painel *ngFor="let foto of fotos | filtroPorTitulo: textoProcurado.value" titulo="{{foto.titulo | uppercase }}" class="col-md-2">
             <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
+            <button (click)="remove(foto)" class="btn btn-danger btn-block">Remover</button>
         </painel>
     </div>
 </div>
